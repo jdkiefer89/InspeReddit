@@ -1,7 +1,5 @@
 package com.fofxlabs.phuc.inspereddit.models;
 
-import android.graphics.Bitmap;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +14,6 @@ public class Post {
     private String mTitle;
     private String mThumbnailUrl;
     private String mImageUrl;
-    public Bitmap mThumbnail, mImage;
 
     public static ArrayList<Post> sPosts = new ArrayList<>();
 

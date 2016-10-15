@@ -1,12 +1,8 @@
 package com.fofxlabs.phuc.inspereddit;
 
-import com.fofxlabs.phuc.inspereddit.models.Post;
-
 import org.junit.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

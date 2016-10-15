@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">InspeReddit</string>
-    <string name="image_not_available">Image not available yet.</string>
+    <string name="fetch_error">There was a problem retrieving the posts. Try to refresh again.</string>
 </resources>

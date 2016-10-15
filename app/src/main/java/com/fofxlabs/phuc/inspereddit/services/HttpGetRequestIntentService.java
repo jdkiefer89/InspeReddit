@@ -1,19 +1,18 @@
 package com.fofxlabs.phuc.inspereddit.services;
 
 import android.app.IntentService;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 
 import com.fofxlabs.phuc.inspereddit.activites.MainActivity;
 import com.fofxlabs.phuc.inspereddit.utils.Constants;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class HttpGetRequestIntentService extends IntentService {
     private static final String ACTION_GET_JSON = "com.fofxlabs.phuc.inspereddit.services.action.GET_JSON";
@@ -22,7 +21,7 @@ public class HttpGetRequestIntentService extends IntentService {
 
     public static final String REQUEST_TYPE_GET = "GET";
     public static final String CONTENT_TYPE_JSON = "application/json; charset=UTF-8";
-    public static final int TIMEOUT = 30000;
+    public static final int TIMEOUT = 10000;
 
     public HttpGetRequestIntentService() {
         super("HttpGetRequestIntentService");
@@ -41,12 +40,12 @@ public class HttpGetRequestIntentService extends IntentService {
             final String action = intent.getAction();
             if (ACTION_GET_JSON.equals(action)) {
                 final String url = intent.getStringExtra(EXTRA_URL);
-                handleActionFoo(url);
+                handleActionGetJson(url);
             }
         }
     }
 
-    private void handleActionFoo(String urlString) {
+    private void handleActionGetJson(String urlString) {
         try {
             URL url = new URL(urlString);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -64,9 +63,14 @@ public class HttpGetRequestIntentService extends IntentService {
                 broadcastIntent.putExtra(Constants.SERVER_RESPONSE, serverResponse);
                 sendBroadcast(broadcastIntent);
             }
+            else {
+                showFetchError();
+            }
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             e.printStackTrace();
+            showFetchError();
         }
     }
 
@@ -85,6 +89,12 @@ public class HttpGetRequestIntentService extends IntentService {
         }
 
         return null;
+    }
+
+    private void showFetchError() {
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction(MainActivity.ResponseReceiver.ACTION_SHOW_URL_FETCH_ERROR);
+        sendBroadcast(broadcastIntent);
     }
 
 }
